@@ -1,12 +1,12 @@
 
 import ProvidersContextProvider from './Providers/ProvidersContextProvider';
 
-import './App.scss';
+import Map from './Components/Map';
 
 function App() {
   return (
     <ProvidersContextProvider>
-      <div className="App" />
+      <Map />
     </ProvidersContextProvider>
   );
 }
