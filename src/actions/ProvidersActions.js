@@ -1,6 +1,6 @@
-export const ADD_RESULTS = 'ADD_RESULTS';
+export const ADD_PROVIDERS = 'ADD_PROVIDERS';
 
-export const addResults = (providers) => ({
-    type: ADD_RESULTS,
+export const addProviders = (providers) => ({
+    type: ADD_PROVIDERS,
     payload: providers
 });
