@@ -1,3 +1,9 @@
 .providers-map {
   height: 100vh;
+
+  &__marker-icon {
+    background-color: red;
+    border: 1px solid white;
+    border-radius: 25%;
+  }
 }
