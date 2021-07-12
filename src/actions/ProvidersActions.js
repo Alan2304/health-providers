@@ -12,6 +12,6 @@ export const filterByName = (providerName) => ({
     payload: providerName
 });
 
-export const RESET_FILTER_BY_NAME = 'RESET_FILTER_BY_NAME';
+export const RESET_FILTERS = 'RESET_FILTERS';
 
-export const resetFilterByName = () => ({type: RESET_FILTER_BY_NAME});
+export const resetFilters = () => ({type: RESET_FILTERS});

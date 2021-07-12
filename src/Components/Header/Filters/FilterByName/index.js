@@ -3,8 +3,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import FilterDialog from '../FilterDialog';
-import { filterByName, resetFilterByName } from '../../../../actions/ProvidersActions';
+import { filterByName, resetFilters } from '../../../../actions/ProvidersActions';
 import ProvidersContext from '../../../../Context/ProvidersContext';
+
+import './FilterByName.scss';
 
 const NameFilter = () => {
     const [showDialog, setShowDialog] = useState(false);
@@ -19,7 +21,7 @@ const NameFilter = () => {
         if (name !== '') {
             dispatch(filterByName(name));   
         } else {
-            dispatch(resetFilterByName());
+            dispatch(resetFilters());
         }
         setShowDialog(false);
     }

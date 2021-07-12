@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core';
 
 import FilterBySpecialities from './Filters/FilterBySpecialities';
 import FilterByName from './Filters/FilterByName';
+import ResetFilters from './Filters/ResetFilters';
 
 import './Header.scss';
 
@@ -24,6 +25,7 @@ const Header = () => {
                     <Typography variant="subtitle1" color="textSecondary" className="providers-header__filters__title">Filter by:</Typography>
                     <FilterBySpecialities />
                     <FilterByName />
+                    <ResetFilters />
                 </Grid>
             </div>
         </AppBar>

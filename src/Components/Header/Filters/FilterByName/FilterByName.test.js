@@ -62,7 +62,7 @@ describe('<FilterByName />', () => {
         const searchButton = screen.getByText('Search');
         fireEvent.click(searchButton);
         expect(dispatch).toHaveBeenCalledWith({
-            type: 'RESET_FILTER_BY_NAME',
+            type: 'RESET_FILTERS',
         });
     });
 })

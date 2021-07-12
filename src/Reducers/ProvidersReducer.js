@@ -1,4 +1,4 @@
-import { ADD_PROVIDERS, FILTER_BY_NAME, RESET_FILTER_BY_NAME } from '../actions/ProvidersActions';
+import { ADD_PROVIDERS, FILTER_BY_NAME, RESET_FILTERS } from '../actions/ProvidersActions';
 import { ADD_SPECIALTIES, FILTER_SPECIALTIES, RESET_FILTER_SPECIALTIES } from '../actions/SpecialtiesActions';
 
 const reducer = (state, action) => {
@@ -27,7 +27,7 @@ const reducer = (state, action) => {
                 ...state,
                 filteredProviders: filteredProvidersByName
             }
-        case RESET_FILTER_BY_NAME:
+        case RESET_FILTERS:
         case RESET_FILTER_SPECIALTIES: 
             return {
                 ...state,
