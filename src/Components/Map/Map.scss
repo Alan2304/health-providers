@@ -1,5 +1,5 @@
 .providers-map {
-  height: 100vh;
+  height: calc(100vh - 96px);
 
   &__marker-icon {
     background-color: #5d21d2;

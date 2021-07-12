@@ -9,7 +9,7 @@ import './Map.scss';
 const Map = () => {
   return (
     <>
-    <MapContainer center={[37.6000, -95.6650]} zoom={4} scrollWheelZoom={false} className="providers-map">
+    <MapContainer center={[37.6000, -95.6650]} zoom={4} scrollWheelZoom={false} className="providers-map" tap={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

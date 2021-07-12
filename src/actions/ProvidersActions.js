@@ -1,6 +1,17 @@
-export const ADD_RESULTS = 'ADD_RESULTS';
+export const ADD_PROVIDERS = 'ADD_PROVIDERS';
 
-export const addResults = (providers) => ({
-    type: ADD_RESULTS,
+export const addProviders = (providers) => ({
+    type: ADD_PROVIDERS,
     payload: providers
 });
+
+export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+
+export const filterByName = (providerName) => ({
+    type: FILTER_BY_NAME,
+    payload: providerName
+});
+
+export const RESET_FILTER_BY_NAME = 'RESET_FILTER_BY_NAME';
+
+export const resetFilterByName = () => ({type: RESET_FILTER_BY_NAME});
