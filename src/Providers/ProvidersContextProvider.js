@@ -35,13 +35,6 @@ const ProvidersContextProvider = ({ children }) => {
     });
 
     const specialities = await specialitiesJson.json();
-    for (const specialty in specialities) {
-      specialities[specialty] = {
-        name: specialities[specialty],
-        checked: false
-      }
-    }
-
     dispatch(addSpecialties(specialities));
   }
 

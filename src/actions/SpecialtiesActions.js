@@ -5,9 +5,15 @@ export const addSpecialties = (specialties) => ({
     payload: specialties
 });
 
-export const FILTER_SPECIALTY = 'FILTER_SPECIALTY';
+export const FILTER_SPECIALTIES = 'FILTER_SPECIALTIES';
 
-export const filterSpecilty = (specialty) => ({
-    type: FILTER_SPECIALTY,
-    payload: specialty
+export const filterSpecilties = (specialties) => ({
+    type: FILTER_SPECIALTIES,
+    payload: specialties
 })
+
+export const RESET_FILTER_SPECIALTIES = 'RESET_FILTER_SPECIALTIES';
+
+export const resetSpecialtiesFilter = () => ({
+    type: RESET_FILTER_SPECIALTIES
+});

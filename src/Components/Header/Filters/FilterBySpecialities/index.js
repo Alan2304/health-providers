@@ -4,13 +4,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 
 import ProvidersContext from '../../../../Context/ProvidersContext';
-import { filterSpecilty } from '../../../../actions/SpecialtiesActions';
+import { filterSpecilties, resetSpecialtiesFilter } from '../../../../actions/SpecialtiesActions';
 
 import './SpecialityFilter.scss';
 
@@ -18,44 +17,73 @@ import './SpecialityFilter.scss';
 const SpecialityFilter = () => {
     const [showDialog, setShowDialog] = useState(false);
     const [showMore, setShowMore] = useState(false);
-    const {state: {specialties}} = useContext(ProvidersContext);
-    // const specialtiesEntries = Object.entries(specialties);
+    const {state: {specialties}, dispatch} = useContext(ProvidersContext);
     const [checkedValues, setCheckedValues] = useState([]);
 
     useEffect(() => {
         const specialtiesEntries = Object.entries(specialties);
-        setCheckedValues(specialtiesEntries.slice().fill(false));
-        console.log(specialtiesEntries.slice().fill(false));
+        const specialtiesMap = specialtiesEntries.map((specialty) => ({id: specialty[0], value: false}));
+        setCheckedValues(specialtiesMap);
     }, [specialties]);
 
     const onChange = (id) => {
-        
-    };
-    
-    let specialtiesCheckbox = null;
-    if(specialties) {
-        const sliceItems = !showMore ? 5 : specialtiesEntries.length; 
+        const newValues = checkedValues.map((specialty) => {
+            if(specialty.id === id) {
+                return {
+                    ...specialty,
+                    value: !specialty.value
+                }
+            }
 
-        // specialtiesCheckbox = specialtiesEntries.slice(0, sliceItems).map((specialty) => (
-        //     <Grid item xs={12} key={specialty[0]}  >
-        //         <FormControlLabel 
-        //             label={specialty[1].name} 
-        //             control={
-        //                 <Checkbox 
-        //                     checked={specialties[specialty[0]].checked} 
-        //                     name={specialty[0]} 
-        //                     color="primary"
-        //                     onChange={() => onChange(specialty[0])}
-        //                     />
-        //             }    
-        //         />
-        //     </Grid>
-        // ))
+            return specialty
+        });
+        setCheckedValues(newValues);
+    };
+     
+    const getCheckboxes = useCallback(() => {
+        if(Object.keys(specialties).length > 0) {
+            const specialtiesEntries = Object.entries(specialties);
+            const sliceItems = !showMore ? 5 : specialtiesEntries.length; 
+    
+            const specialtiesCheckbox = specialtiesEntries.slice(0, sliceItems).map((specialty, index) => {
+                const [id, name] = specialty;
+                return (
+                    <Grid item xs={12} key={id}>
+                        <FormControlLabel 
+                            label={name} 
+                            control={
+                                <Checkbox 
+                                    checked={checkedValues[index]?.value}
+                                    name={id} 
+                                    color="primary"
+                                    onChange={() => onChange(id)}
+                                    />
+                            }    
+                        />
+                    </Grid>
+                )
+            });
+            
+            return specialtiesCheckbox;
+        }
+
+        return null
+    }, [specialties, showMore, checkedValues])
+
+    const handleClose = () => {
+        setShowDialog(false)
     }
 
-    const handleClose = useCallback(() => {
-        setShowDialog(false)
-    }, [setShowDialog])
+    const filterValues = () => {
+        const filteredValues = checkedValues.filter((specialty) => specialty.value);
+        setShowDialog(false);
+        if (filteredValues.length > 0) {
+            const keysToFilter = filteredValues.map((value) => value.id);   
+            dispatch(filterSpecilties(keysToFilter));
+        } else {
+            dispatch(resetSpecialtiesFilter());
+        }
+    }
 
      return (
         <div className="speciality-filter">
@@ -74,7 +102,7 @@ const SpecialityFilter = () => {
                       alignItems="flex-start"
                     >
                         <Grid item xs={12}>
-                            {specialtiesCheckbox}
+                            {getCheckboxes()}
                         </Grid>
                         <Grid item xs={12}>
                             <Button onClick={() => setShowMore(!showMore)}>
@@ -87,7 +115,7 @@ const SpecialityFilter = () => {
                     <Button onClick={handleClose} color="primary">
                       Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={filterValues} color="primary">
                       Search
                     </Button>
                 </DialogActions>

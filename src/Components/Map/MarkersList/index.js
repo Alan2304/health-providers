@@ -9,8 +9,9 @@ const MakersList = () => {
     const { state } = useContext(ProvidersContext);
 
   if (state.providers ) {
-    const { providers } = state;
-    const markers = providers.map((provider) => {
+    const { providers, filteredProviders } = state;
+    const listOfProviders = filteredProviders.length > 0 ? filteredProviders : providers;
+    const markers = listOfProviders.map((provider) => {
       const {id, name,location: { latLng, address: {line} },} = provider;
       return (
         <Marker key={`markerid-${id}`} position={[latLng.lat, latLng.lng]} icon={ProviderMarkerIcon}>

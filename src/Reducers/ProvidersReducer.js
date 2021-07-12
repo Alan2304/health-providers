@@ -1,5 +1,5 @@
 import {ADD_PROVIDERS} from '../actions/ProvidersActions';
-import { ADD_SPECIALTIES, FILTER_SPECIALTY } from '../actions/SpecialtiesActions';
+import { ADD_SPECIALTIES, FILTER_SPECIALTIES, RESET_FILTER_SPECIALTIES } from '../actions/SpecialtiesActions';
 
 const reducer = (state, action) => {
     switch(action.type) {
@@ -13,16 +13,19 @@ const reducer = (state, action) => {
                 ...state,
                 specialties: {...action.payload}
             }
-        case FILTER_SPECIALTY:
+        case FILTER_SPECIALTIES:
+            const { providers } = state
+            const filteredProviders = providers.filter((provider) => {
+                return provider.specialties.some((specialty) => action.payload.includes(specialty));
+            });
             return {
                 ...state,
-                specialties: {
-                    ...state.specialties,
-                    [action.payload]: {
-                        ...state.specialties[action.payload],
-                        checked: !state.specialties[action.payload].checked
-                    } 
-                }
+                filteredProviders
+            }
+        case RESET_FILTER_SPECIALTIES: 
+            return {
+                ...state,
+                filteredProviders: []
             }
         default: 
             return state;

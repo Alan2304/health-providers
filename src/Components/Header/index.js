@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
-import SpecialityFilter from './Filters/SpecialityFilter';
+import SpecialityFilter from './Filters/FilterBySpecialities';
 
 import './Header.scss';
 
@@ -18,6 +18,7 @@ const Header = () => {
                 </Typography>
             </Toolbar>
             <div className="providers-header__filters">
+                Filter By:
                 <SpecialityFilter />
             </div>
         </AppBar>
