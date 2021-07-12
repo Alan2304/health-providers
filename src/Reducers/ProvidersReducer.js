@@ -1,4 +1,4 @@
-import {ADD_PROVIDERS} from '../actions/ProvidersActions';
+import { ADD_PROVIDERS, FILTER_BY_NAME } from '../actions/ProvidersActions';
 import { ADD_SPECIALTIES, FILTER_SPECIALTIES, RESET_FILTER_SPECIALTIES } from '../actions/SpecialtiesActions';
 
 const reducer = (state, action) => {
@@ -14,13 +14,18 @@ const reducer = (state, action) => {
                 specialties: {...action.payload}
             }
         case FILTER_SPECIALTIES:
-            const { providers } = state
-            const filteredProviders = providers.filter((provider) => {
+            const filteredProvidersBySpeciality = state.providers.filter((provider) => {
                 return provider.specialties.some((specialty) => action.payload.includes(specialty));
             });
             return {
                 ...state,
-                filteredProviders
+                filteredProviders: filteredProvidersBySpeciality
+            }
+        case FILTER_BY_NAME:
+            const filteredProvidersByName = state.providers.filter((provider) => provider.name.includes(action.payload));
+            return {
+                ...state,
+                filteredProviders: filteredProvidersByName
             }
         case RESET_FILTER_SPECIALTIES: 
             return {

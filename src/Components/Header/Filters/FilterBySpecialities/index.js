@@ -1,13 +1,10 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 
+import FilterDialog from '../FilterDialog';
 import ProvidersContext from '../../../../Context/ProvidersContext';
 import { filterSpecilties, resetSpecialtiesFilter } from '../../../../actions/SpecialtiesActions';
 
@@ -26,7 +23,7 @@ const SpecialityFilter = () => {
         setCheckedValues(specialtiesMap);
     }, [specialties]);
 
-    const onChange = (id) => {
+    const onChange = useCallback((id) => {
         const newValues = checkedValues.map((specialty) => {
             if(specialty.id === id) {
                 return {
@@ -38,7 +35,7 @@ const SpecialityFilter = () => {
             return specialty
         });
         setCheckedValues(newValues);
-    };
+    }, [checkedValues]);
      
     const getCheckboxes = useCallback(() => {
         if(Object.keys(specialties).length > 0) {
@@ -68,11 +65,7 @@ const SpecialityFilter = () => {
         }
 
         return null
-    }, [specialties, showMore, checkedValues])
-
-    const handleClose = () => {
-        setShowDialog(false)
-    }
+    }, [specialties, showMore, checkedValues, onChange])
 
     const filterValues = () => {
         const filteredValues = checkedValues.filter((specialty) => specialty.value);
@@ -90,36 +83,23 @@ const SpecialityFilter = () => {
             <Button variant="outlined" color="primary" size="small" onClick={() => setShowDialog(true)}>
                 Specialities
             </Button>
-            <Dialog aria-labelledby="speciality-filter-modal" className="speciality-filter-modal" fullWidth open={showDialog} onClose={handleClose}>
-                <DialogTitle>
-                    Filter By:
-                </DialogTitle>
-                <DialogContent>
-                    <Grid
-                      container
-                      direction="column"
-                      justifyContent="flex-start"
-                      alignItems="flex-start"
-                    >
-                        <Grid item xs={12}>
-                            {getCheckboxes()}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button onClick={() => setShowMore(!showMore)}>
-                                Show {!showMore ? 'More' : 'Less'}
-                            </Button>
-                        </Grid>
+            <FilterDialog searchAction={filterValues} showDialog={showDialog} close={() => setShowDialog(false)} >
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                >
+                    <Grid item xs={12}>
+                        {getCheckboxes()}
                     </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button onClick={filterValues} color="primary">
-                      Search
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                    <Grid item xs={12}>
+                        <Button onClick={() => setShowMore(!showMore)}>
+                            Show {!showMore ? 'More' : 'Less'}
+                        </Button>
+                    </Grid>
+                </Grid>
+            </FilterDialog>
         </div>
 
     )

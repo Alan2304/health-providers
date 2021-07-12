@@ -3,8 +3,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import { Grid } from '@material-ui/core';
 
-import SpecialityFilter from './Filters/FilterBySpecialities';
+import FilterBySpecialities from './Filters/FilterBySpecialities';
+import FilterByName from './Filters/FilterByName';
 
 import './Header.scss';
 
@@ -18,8 +20,11 @@ const Header = () => {
                 </Typography>
             </Toolbar>
             <div className="providers-header__filters">
-                Filter By:
-                <SpecialityFilter />
+                <Grid container direction="row">
+                    <Typography variant="subtitle1" color="textSecondary" className="providers-header__filters__title">Filter by:</Typography>
+                    <FilterBySpecialities />
+                    <FilterByName />
+                </Grid>
             </div>
         </AppBar>
     )
