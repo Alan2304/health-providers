@@ -54,6 +54,7 @@ const SpecialityFilter = () => {
                                     name={id} 
                                     color="primary"
                                     onChange={() => onChange(id)}
+                                    data-testid="checkbox-specialty"
                                     />
                             }    
                         />
@@ -81,7 +82,7 @@ const SpecialityFilter = () => {
      return (
         <div className="speciality-filter">
             <Button variant="outlined" color="primary" size="small" onClick={() => setShowDialog(true)}>
-                Specialities
+                Specialties
             </Button>
             <FilterDialog searchAction={filterValues} showDialog={showDialog} close={() => setShowDialog(false)} >
                 <Grid

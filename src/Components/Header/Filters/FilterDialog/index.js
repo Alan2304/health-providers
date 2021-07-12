@@ -7,9 +7,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 const FilterDialog = ({children, searchAction, showDialog, close}) => {
     return (
-        <Dialog aria-labelledby="speciality-filter-modal" className="speciality-filter-modal" fullWidth open={showDialog} handleClose={close}>
+        <Dialog aria-labelledby="speciality-filter-modal" className="speciality-filter-modal" fullWidth open={showDialog} onClose={close} data-testid="filter-dialog">
             <DialogTitle>
-                Filter By:
+                Filter by:
             </DialogTitle>
             <DialogContent>
                 {children}

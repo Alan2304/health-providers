@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import FilterDialog from '../FilterDialog';
-import { filterByName } from '../../../../actions/ProvidersActions';
+import { filterByName, resetFilterByName } from '../../../../actions/ProvidersActions';
 import ProvidersContext from '../../../../Context/ProvidersContext';
 
 const NameFilter = () => {
@@ -16,7 +16,11 @@ const NameFilter = () => {
     }
 
     const filterProviderByName = () => {
-        dispatch(filterByName(name));
+        if (name !== '') {
+            dispatch(filterByName(name));   
+        } else {
+            dispatch(resetFilterByName());
+        }
         setShowDialog(false);
     }
 
