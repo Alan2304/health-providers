@@ -5,6 +5,10 @@ Verify the version of nodejs and npm aver equal or greater:
 * npm: 6.14.6
 
 ## How to run
+First run: 
+```
+npm install
+```
 To run the fastest version of the project run: 
 ```
 npm run build
